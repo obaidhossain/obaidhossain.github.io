@@ -1,11 +1,14 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// Change base value with your actual GitHub repo name
-// e.g. base: "/portfolio/" or base: "/" for username.github.io
+// GitHub Pages deployment - change base if repo is not username.github.io
+// e.g. base: "/repo-name/" for github.com/username/repo-name
 export default defineConfig({
-  plugins: [
-    react(),
-  ],
+  plugins: [react()],
   base: "/",
+  server: {
+    mimeTypes: {
+      "application/javascript": ["jsx"],
+    },
+  },
 });
