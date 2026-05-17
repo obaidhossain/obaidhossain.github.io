@@ -1,0 +1,255 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-mono: "JetBrains Mono", monospace;
+  --font-display: "Rubik 80s Fade", system-ui;
+
+  /* Backgrounds */
+  --color-bg: #080c10;
+  --color-bg-surface: #0d1117;
+  --color-bg-alt: #111820;
+
+  /* Borders */
+  --color-border: #1e2d3d;
+  --color-border-dim: #131e2a;
+
+  /* Accent */
+  --color-accent: #00d4ff;
+  --color-accent-glow: rgba(0, 212, 255, 0.2);
+  --color-accent-dim: rgba(0, 212, 255, 0.5);
+  --color-accent-muted: rgba(0, 212, 255, 0.1);
+
+  /* Neon */
+  --color-neon: #39ff14;
+  --color-neon-dim: rgba(57, 255, 20, 0.4);
+  --color-neon-muted: rgba(57, 255, 20, 0.08);
+
+  /* Text */
+  --color-ink: #c9d1d9;
+  --color-ink-dim: #8b949e;
+  --color-ink-muted: #484f58;
+  --color-ink-white: #f0f6fc;
+
+  /* Shadows */
+  --shadow-accent: 0 0 20px rgba(0, 212, 255, 0.25);
+  --shadow-accent-sm: 0 0 10px rgba(0, 212, 255, 0.15);
+  --shadow-neon: 0 0 12px rgba(57, 255, 20, 0.4);
+
+  /* Background Images */
+  --background-image-grid-pattern:
+    linear-gradient(rgba(30, 45, 61, 0.4) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      rgba(30, 45, 61, 0.4) 1px,
+      transparent 1px
+    );
+
+  --background-image-scanlines:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.12) 2px,
+      rgba(0, 0, 0, 0.12) 4px
+    );
+
+  --background-size-grid: 60px 60px;
+
+  /* Animations */
+  --animate-blink: blink 0.8s step-end infinite;
+  --animate-pulse2: pulse2 2s ease-in-out infinite;
+  --animate-slide-up: slideUp 0.6s ease forwards;
+  --animate-fade-in: fadeIn 0.5s ease forwards;
+  --animate-glitch1: glitch1 4s infinite;
+  --animate-glitch2: glitch2 4s infinite;
+  --animate-scan: scan 8s linear infinite;
+
+  /* Keyframes */
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulse2 {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes glitch1 {
+    0%,
+    94%,
+    100% {
+      transform: none;
+      opacity: 0;
+    }
+
+    95% {
+      transform: translateX(-3px);
+      opacity: 0.8;
+    }
+
+    97% {
+      transform: translateX(3px);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes glitch2 {
+    0%,
+    96%,
+    100% {
+      transform: none;
+      opacity: 0;
+    }
+
+    97% {
+      transform: translateX(3px);
+      opacity: 0.7;
+    }
+
+    99% {
+      transform: translateX(-3px);
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes scan {
+    0% {
+      background-position: 0 0;
+    }
+
+    100% {
+      background-position: 0 100%;
+    }
+  }
+}
+
+/* =========================
+   CUSTOM UTILITIES
+========================= */
+
+@utility glitch {
+  @apply relative inline-block;
+
+  &::before,
+  &::after {
+    content: attr(data-text);
+    @apply absolute top-0 left-0 w-full h-full;
+  }
+
+  &::before {
+    @apply text-accent animate-glitch1;
+
+    clip-path: polygon(
+      0 20%,
+      100% 20%,
+      100% 40%,
+      0 40%
+    );
+  }
+
+  &::after {
+    color: #ff0055;
+    @apply animate-glitch2;
+
+    clip-path: polygon(
+      0 60%,
+      100% 60%,
+      100% 80%,
+      0 80%
+    );
+  }
+}
+
+@utility terminal-window {
+  @apply bg-bg-surface border border-border rounded-md overflow-hidden;
+}
+
+@utility terminal-bar {
+  @apply flex items-center gap-2 px-4 py-2 bg-bg-alt border-b border-border;
+}
+
+@utility section-container {
+  @apply max-w-5xl mx-auto px-6 md:px-10;
+}
+
+@utility nav-link {
+  @apply text-ink-dim hover:text-accent text-[0.7rem] tracking-widest uppercase transition-colors duration-200;
+
+  &.active {
+    @apply text-accent;
+  }
+}
+
+@utility card {
+  @apply bg-bg-surface border border-border transition-all duration-300;
+
+  &:hover {
+    @apply border-accent-dim -translate-y-0.5;
+  }
+}
+
+@utility input-field {
+  @apply w-full bg-bg border border-border text-ink font-mono text-sm px-3 py-2.5 outline-none
+         focus:border-accent-dim transition-colors duration-200
+         placeholder:text-ink-muted;
+}
+
+/* =========================
+   BASE STYLES
+========================= */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-bg text-ink font-mono overflow-x-hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-bg;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+}
