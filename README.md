@@ -5,7 +5,8 @@ Auto-deploys to GitHub Pages via GitHub Actions.
 
 ## Tech
 - React 18 + Vite 5
-- Tailwind CSS v3
+- Tailwind CSS v4
+- Google Form API
 - GitHub REST API (live github stats)
 - GitHub Actions (CI/CD)
 
@@ -52,11 +53,5 @@ src/
 npm install
 npm run dev
 ```
-
-## Customize
-
-1. **Profile information** — `src/data/skills.js`, `projects.js`, `blog.js`
-2. **GitHub live stats** — `src/components/GitHubStats.jsx`
-3. **Contact links** — `Contact.jsx`
 
 Live on `https://obaidhossain.github.io/`
